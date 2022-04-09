@@ -26,7 +26,20 @@ namespace TarihBulmaApp
         //Her tarih değiştiğinde listedeki değerleri otomatik güncellemek için bu Event'i ekledim ve günlük mü haftalık mı sorgusunun methodunu çağırdım
         private void mCalendar01_DateChanged(object sender, DateRangeEventArgs e)
         {
-            GetSelectedFilter();
+            MonthCalendar date1 = mCalendar01;
+            MonthCalendar date2 = mCalendar02;
+            if(date1.SelectionRange.Start > date2.SelectionRange.Start)
+            {
+                MessageBox.Show("Başlangıç tarihi bitiş tarihinden büyük olamaz!","UYARI",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            else if(date2.SelectionRange.Start < date1.SelectionRange.Start)
+            {
+                MessageBox.Show("Bitiş tarihi başlangıç tarihinden küçük olamaz!", "UYARI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                GetSelectedFilter();
+            }
         }
         #region Günlük ve Haftalık Filtreleme İşlemleri İçin ComboBox'ların içini burada Dolduruyoruz
         private void cbBox01_SelectedIndexChanged(object sender, EventArgs e)
